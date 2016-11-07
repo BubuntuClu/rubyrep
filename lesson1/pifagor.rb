@@ -40,5 +40,5 @@ if (firstS == secondS || firstS == thirdS || secondS == thirdS)
 end
 
 if (firstS == secondS && firstS == thirdS && secondS == thirdS)
-	puts "Triangle is equilateral"
+	puts "Triangle is equilateral, but not rectangular"
 end
