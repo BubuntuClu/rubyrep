@@ -9,9 +9,10 @@ c = gets.chomp.to_i
 
 D = b**2 - 4 * a * c
 
-sqrtD = Math.sqrt(D);
+
 
 if (D > 0)
+  sqrtD = Math.sqrt(D);
 	puts "discriminant: #{D}"
 	puts "x1: #{(-b + sqrtD)/(2 * a)}"
 	puts "x2: #{(-b - sqrtD)/(2 * a)}"
