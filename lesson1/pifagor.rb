@@ -1,34 +1,39 @@
 puts "Enter the first side:"
-firstS = gets.chomp.to_i
+firstS = gets.chomp.to_f
 
 puts "Enter the second side:"
-secondS = gets.chomp.to_i
+secondS = gets.chomp.to_f
 
 puts "Enter the third side:"
-thirdS = gets.chomp.to_i
+thirdS = gets.chomp.to_f
 
 if (firstS > secondS && firstS > thirdS)
-	if (firstS**2 == secondS**2 + thirdS**2)
-		puts "Triangle is rectangular"
-	end
+  gipo = firstS
+  catet1 = secondS
+  catet2 = thirdS
 end
 
 if (secondS > firstS && secondS > thirdS)
-	if (secondS**2 == firstS**2 + thirdS**2)
-		puts "Triangle is rectangular"
-	end
+  gipo = secondS
+  catet1 =firstS  
+  catet2 = thirdS
 end
 
 if (thirdS > secondS && thirdS > firstS)
-	if (thirdS**2 == secondS**2 + firstS**2)
-		puts "Triangle is rectangular"
-	end
+  gipo = thirdS
+  catet1 = secondS
+  catet2 = firstS
 end
 
+if (gipo**2 == catet1**2 + catet2**2)
+ puts "Triangle is rectangular"
+end
+
+
 if (firstS == secondS || firstS == thirdS || secondS == thirdS)
-	puts "Triangle is isosceles"
+  puts "Triangle is isosceles"
 end
 
 if (firstS == secondS && firstS == thirdS && secondS == thirdS)
-	puts "Triangle is equilateral, but not rectangular"
+  puts "Triangle is equilateral, but not rectangular"
 end

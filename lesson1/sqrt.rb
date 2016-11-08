@@ -9,17 +9,15 @@ c = gets.chomp.to_i
 
 D = b**2 - 4 * a * c
 
-
-
 if (D > 0)
   sqrtD = Math.sqrt(D);
-	puts "discriminant: #{D}"
-	puts "x1: #{(-b + sqrtD)/(2 * a)}"
-	puts "x2: #{(-b - sqrtD)/(2 * a)}"
-else if (D == 0)
-		puts "discriminant: #{D}"
-		puts "x1=x2: #{-b/(2 * a)}"
-	else
-		puts " there are no values"
-	end
+  puts "discriminant: #{D}"
+  puts "x1: #{(-b + sqrtD)/(2 * a)}"
+  puts "x2: #{(-b - sqrtD)/(2 * a)}"
+  else if (D == 0)
+   puts "discriminant: #{D}"
+   puts "x1=x2: #{-b/(2 * a)}"
+  else
+    puts " there are no values"
+  end
 end
