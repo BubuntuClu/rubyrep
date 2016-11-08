@@ -34,6 +34,6 @@ if (firstS == secondS || firstS == thirdS || secondS == thirdS)
   puts "Triangle is isosceles"
 end
 
-if (firstS == secondS && firstS == thirdS && secondS == thirdS)
+if (firstS == secondS && secondS == thirdS)
   puts "Triangle is equilateral, but not rectangular"
 end
