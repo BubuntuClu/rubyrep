@@ -14,9 +14,9 @@ if (D > 0)
   puts "discriminant: #{D}"
   puts "x1: #{(-b + sqrtD)/(2 * a)}"
   puts "x2: #{(-b - sqrtD)/(2 * a)}"
-  else if (D == 0)
-   puts "discriminant: #{D}"
-   puts "x1=x2: #{-b/(2 * a)}"
+elsif (D == 0)
+    puts "discriminant: #{D}"
+    puts "x1=x2: #{-b/(2 * a)}"
   else
     puts " there are no values"
   end
