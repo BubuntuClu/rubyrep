@@ -1,24 +1,17 @@
-noleap_months = {1 => 31, 2 => 28, 3 => 31, 4 => 30, 5 => 31, 6 => 30, 7 => 31, 8 => 31, 9 => 30,
-10 => 31, 11 => 30, 12 => 31}
-
-leap_months = {1 => 31, 2 => 29, 3 => 31, 4 => 30, 5 => 31, 6 => 30, 7 => 31, 8 => 31, 9 => 30,
-10 => 31, 11 => 30, 12 => 31}
-
 puts "Enter year:"
 year = gets.chomp.to_i
 
 is_leap_year = (year % 4 == 0 && year % 400 == 0 )? true : false
 
-if (is_leap_year)
-  months = leap_months
-else
-  months = noleap_months
-end
+february = 28
+february = 29 if year % 4 == 0 && year % 100 !=0 || year % 400 == 0
+
+months = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 puts "Enter month:"
 month = gets.chomp.to_i
 
-while (!months.include?(month)) do
+while month > 12 && month < 0 do
   puts "There is no such month. Enter month:"
   month = gets.chomp.to_i
 end
@@ -26,7 +19,7 @@ end
 puts "Enter day:"
 day = gets.chomp.to_i
 
-while (months[month] < day ) do
+while months[month-1] < day  do
   puts "There is no such day in that month. Enter day:"
   day = gets.chomp.to_i
 end
@@ -34,7 +27,7 @@ end
 date_number = 0
 
 for i in 1..(month-1) do
-  date_number += months[i]
+  date_number += months[i - 1]
 end
 
 date_number += day

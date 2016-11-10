@@ -3,12 +3,12 @@ loop do
   puts "Enter the name of goods:"
   goods_name = gets.chomp.to_s
 
-  while (basket.include?(goods_name)) do
+  while basket.include?(goods_name) do
     puts "there is goods with that name. Buy a new goods:"
     goods_name = gets.chomp.to_s
   end
 
-  break if goods_name.downcase == "STOP".downcase 
+  break if goods_name.downcase == "stop"
 
   puts "Enter the price of goods:"
   goods_price = gets.chomp.to_f

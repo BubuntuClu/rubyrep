@@ -1,11 +1,5 @@
 vowels = ['a', 'e', 'i', 'o', 'u', 'y']
-index = 1;
 alhabet = {}
-('a'..'z').each do |letter|
-  if (vowels.include?(letter) )
-    alhabet[letter] = index
-  end
-  index+=1
-end
+('a'..'z').each_with_index {|letter,index| alhabet[letter] = index+1 if vowels.include?(letter) }
 
 puts alhabet
