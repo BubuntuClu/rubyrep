@@ -1,10 +1,11 @@
 puts "Enter year:"
 year = gets.chomp.to_i
 
-is_leap_year = (year % 4 == 0 && year % 400 == 0 )? true : false
-
-february = 28
-february = 29 if year % 4 == 0 && year % 100 != 0 || year % 400 == 0
+if year % 4 == 0 && year % 100 != 0 || year % 400 == 0
+  february = 29 
+else
+  february = 28
+end
 
 months = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
