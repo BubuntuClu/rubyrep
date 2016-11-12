@@ -54,12 +54,12 @@ class Station
   def trains_count
     @trains.size
   end
-
 end
 
 class Route
   
   attr_reader :start_station
+
   def initialize(start_station, end_station)
     @start_station = start_station
     @start_station.next = end_station
@@ -83,13 +83,11 @@ class Route
 
   def remove_station(station)
     if station.trains_count == 0
-      @stations.each_with_index  do |st, i| 
-        if st == station
-          station.prev.next = station.next
-          station.next.prev = station.prev
-          @stations.delete_at(i) 
-        end
-      end
+      if @stations.include?(station)
+        station.prev.next = station.next
+        station.next.prev = station.prev
+        @stations.delete_at(@stations.index(station)) 
+      end      
     else
       puts "there are some trains on the station. u cant delete it"
     end
@@ -174,83 +172,3 @@ class Train
     puts "number - #{number}; type - #{type}; cars count: #{car}"
   end
 end
-
-
-# station1 = Station.new("st1")
-# station1.name
-# station1.show_all_trains
-# station1.show_typed_trains('cargo')
-# station1.show_typed_trains('passenger')
-
-# station10 = Station.new("st10")
-
-# route = Route.new(station1, station10)
-# route.show_stations
-
-# station2 = Station.new("st2")
-# station3 = Station.new("st3")
-# station4 = Station.new("st4")
-# route.add_station(station2)
-# route.add_station(station3)
-# route.add_station(station4)
-# route.show_stations
-# route.remove_station(station3)
-# route.show_stations
-
-
-# train1 = Train.new("tr1","cargo", 3)
-# train1.current_speed
-# train1.show_cars_count
-# train1.speed_up(99)
-# train1.add_car
-# train1.show_cars_count
-# train1.current_speed
-# train1.stop
-# train1.current_speed
-# train1.add_car
-# train1.add_car
-# train1.show_cars_count
-# train1.remove_car
-# train1.remove_car
-# train1.remove_car
-# train1.remove_car
-# train1.remove_car
-# train1.remove_car
-# train1.remove_car
-# train1.remove_car
-# train1.remove_car
-# train1.show_cars_count
-# train1.speed_up(99)
-# train1.add_car
-# train1.show_cars_count
-
-# train1.route=route
-# train1.route.show_stations
-
-
-train1 = Train.new("tr1","cargo", 3)
-station1 = Station.new("st1")
-station10 = Station.new("st10")
-route = Route.new(station1, station10)
-train1.route = route
-train1.move_to_next_station
-train1.move_to_next_station
-# station1.start_train_to_next_station(train1)
-# station10.start_train_to_next_station(train1)
-
-station2 = Station.new("st2")
-station3 = Station.new("st3")
-station4 = Station.new("st4")
-route.add_station(station2)
-train1.move_to_prev_station
-route.remove_station(station2)
-train1.show_stations
-station2.show_all_trains
-station2.show_typed_trains("cargo")
-
-train2 = Train.new("tr2","passenger", 5)
-route2 = Route.new(station2, station3)
-train2.route = route2
-station2.show_all_trains
-station2.show_typed_trains("cargo")
-station2.show_typed_trains("passenger")
