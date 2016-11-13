@@ -1,7 +1,6 @@
 class Station
 
   attr_reader :name
-  attr_accessor :next, :prev
 
   def initialize(name)
     @name = name
@@ -9,7 +8,7 @@ class Station
   end
  
   def add_train(train)
-    @trains.push(train)
+    @trains << train
     puts "on station #{self.name} train has arrived. count of trains is #{trains_count}"
   end
 
@@ -23,34 +22,10 @@ class Station
     @trains.each { |train| train.show_train_info if train.type == type }
   end
 
-  def start_train_to_next_station(train)
-    if @trains.include?(train)
-      if self.next != nil
-        puts "train #{train.number} has left the station #{self.name}"
-        @trains.delete_at(@trains.index(train))    
-        self.next.add_train(train)
-        return true
-      else
-        puts "its last station"
-        return false
-      end
-    end
+  def remove_train(train)
+    @trains.delete(train)
   end
-
-  def start_train_to_prev_station(train)
-    if @trains.include?(train)
-      if self.prev != nil
-        puts "train #{train.number} has left the station #{self.name}"
-        @trains.delete_at(@trains.index(train)) 
-        self.prev.add_train(train)
-        return true
-      else
-        puts "its first station"
-        return false
-      end
-    end
-  end
-
+  
   def trains_count
     @trains.size
   end
@@ -58,36 +33,21 @@ end
 
 class Route
   
-  attr_reader :start_station
+  attr_reader :start_station, :end_station, :stations
 
   def initialize(start_station, end_station)
     @start_station = start_station
-    @start_station.next = end_station
     @end_station = end_station 
-    @end_station.prev = start_station
-    @stations = []
+    @stations = [start_station, end_station]
   end
 
   def add_station(station)
-    if @stations.size == 0
-      @start_station.next = station 
-      station.prev = @start_station
-    else
-      @stations[-1].next = station
-      station.prev = @stations[-1]
-    end
-    station.next = @end_station
-    @end_station.prev = station
-    @stations.push(station)
+    @stations << station
   end
 
   def remove_station(station)
     if station.trains_count == 0
-      if @stations.include?(station)
-        station.prev.next = station.next
-        station.next.prev = station.prev
-        @stations.delete_at(@stations.index(station)) 
-      end      
+      @stations.delete(station)    
     else
       puts "there are some trains on the station. u cant delete it"
     end
@@ -102,20 +62,20 @@ end
 
 class Train
 
-  attr_accessor :speed, :car, :current_station
+  attr_accessor :speed, :car, :index_station
   attr_reader :route, :number, :type
 
   def initialize(number, type, car)
     @number = number
     @type = type 
     @car = car
-    @speed = 0  
+    @speed = 0      
   end
 
   def route=(route)
     @route = route
-    @current_station = route.start_station
-    route.start_station.add_train(self)
+    @index_station = 0
+    @route.stations[self.index_station].add_train(self)
   end
 
   def speed_up(speed)
@@ -152,20 +112,36 @@ class Train
     show_cars_count
   end
 
-  def move_to_next_station
-    isMoved = self.current_station.start_train_to_next_station(self)
-    self.current_station = self.current_station.next if isMoved
+  def move_train
+      if self.index_station == self.route.stations.size-1 
+        self.index_station = 0
+        self.route.stations.reverse!
+      end
+      current_station = self.route.stations[index_station]
+      current_station.remove_train(self)
+      self.index_station += 1
+      current_station = self.route.stations[index_station]
+      current_station.add_train(self)
   end
 
-  def move_to_prev_station
-    isMoved = self.current_station.start_train_to_prev_station(self)
-    self.current_station = self.current_station.prev if isMoved
+  def show_current_station 
+    puts "current station: #{self.route.stations[self.index_station].name}"    
   end
 
-  def show_stations
-    puts "prev station: #{self.current_station.prev.name}" if self.current_station.prev != nil
-    puts "current station: #{self.current_station.name}"
-    puts "next station: #{self.current_station.next.name}" if self.current_station.next != nil
+  def show_next_station
+    if self.index_station == self.route.stations.size-1
+      puts "u r in the end of route"
+    else
+      puts "next station: #{self.route.stations[self.index_station + 1].name}"
+    end
+  end
+
+  def show_prev_station
+    if self.index_station == 0 
+      puts "u r in the start of route"
+    else
+      puts "next station: #{self.route.stations[self.index_station - 1].name}"
+    end
   end
 
   def show_train_info
