@@ -43,7 +43,7 @@ class Route
   end
 
   def add_station(station)
-    self.stations << station
+    self.stations.insert(-2, station)
   end
 
   def remove_station(station)
@@ -114,15 +114,15 @@ class Train
   end
 
   def move_train
-      if self.index_station == self.route.stations.size-1 
-        self.index_station = 0
-        self.route.stations.reverse!
-      end
-      current_station = self.route.stations[index_station]
-      current_station.remove_train(self)
-      self.index_station += 1
-      current_station = self.route.stations[index_station]
-      current_station.add_train(self)
+    if self.index_station == self.route.stations.size-1 
+      self.index_station = 0
+      self.route.stations.reverse!
+    end
+    current_station = self.route.stations[index_station]
+    current_station.remove_train(self)
+    self.index_station += 1
+    current_station = self.route.stations[index_station]
+    current_station.add_train(self)
   end
 
   def show_current_station 
@@ -149,3 +149,14 @@ class Train
     puts "number - #{number}; type - #{type}; cars count: #{car}"
   end
 end
+
+
+statin1= Station.new("qwe")
+statin2= Station.new("qwe1")
+route1 = Route.new(statin1,statin2)
+train = Train.new("qwe","cargo",3)
+train.route=route1
+train.show_next_station
+statin3= Station.new("qwe3")
+route1.add_station(statin3)
+train.show_next_station
