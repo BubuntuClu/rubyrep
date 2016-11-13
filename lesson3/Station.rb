@@ -25,7 +25,8 @@ class Station
   def remove_train(train)
     @trains.delete(train)
   end
-  
+
+
   def trains_count
     @trains.size
   end
@@ -42,12 +43,12 @@ class Route
   end
 
   def add_station(station)
-    @stations << station
+    self.stations << station
   end
 
   def remove_station(station)
     if station.trains_count == 0
-      @stations.delete(station)    
+      self.stations.delete(station)    
     else
       puts "there are some trains on the station. u cant delete it"
     end
@@ -55,7 +56,7 @@ class Route
 
   def show_stations
     puts "first station is - #{@start_station.name} "
-    @stations.each { |station| puts "next station is - #{station.name}" }
+    self.stations.each { |station| puts "next station is - #{station.name}" }
     puts "last station is - #{@end_station.name} "
   end
 end
