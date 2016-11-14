@@ -1,5 +1,4 @@
 class Train
-
   attr_accessor :speed
   attr_reader :route, :number, :type, :cars, :index_station
 
@@ -29,7 +28,9 @@ class Train
   end
 
 
-  def add_car
+  def add_car(car)
+    self.cars << car
+    show_cars_count 
   end
 
   def remove_car
@@ -86,5 +87,4 @@ class Train
   def show_cars_count
     puts "cars count: #{self.cars.size}"
   end
-
 end

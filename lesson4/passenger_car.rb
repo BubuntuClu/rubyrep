@@ -1,5 +1,4 @@
 class PassengerCar < Car
-
   def initialize(type, sleeps)
     super(type)
     @sleeps = sleeps
@@ -13,7 +12,6 @@ class PassengerCar < Car
 
  #put this in private because i dont want let user use getter on sleeps. they should use show_info
   attr_reader :sleeps
-
 end
 
   

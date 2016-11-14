@@ -1,5 +1,4 @@
 class CargoCar < Car
-
   def initialize(type, capacity)
     super(type)
     @capacity = capacity
@@ -13,5 +12,4 @@ class CargoCar < Car
 
   #put this in private because i dont want let user use getter on capacity. they should use show_info
   attr_reader :capacity
-
 end
