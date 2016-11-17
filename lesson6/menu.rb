@@ -61,12 +61,16 @@ private
     puts "2. passenger"
     type = gets.chomp.to_i
     if type == 1
-      ct = CargoTrain.new(train_name, type)
+      ct = CargoTrain.new(train_name, "cargo")
       trains << ct
     else
-      pt = PassengerTrain.new(train_name, type)
+      pt = PassengerTrain.new(train_name, "passenger")
       trains << pt
     end
+    puts "the train #{train_name} was created.WOOHOO!"
+    rescue StandardError => e
+      puts "error: #{e.message}"
+      retry
   end
 
   def add_car

@@ -1,11 +1,15 @@
 require_relative 'modules/manufacturer'
 require_relative 'modules/instanceCounter'
+require_relative 'modules/validator'
 
 class Train
   include Manufacturer
   include InstanceCounter
-  attr_accessor :speed
-  attr_reader :route, :number, :type, :cars, :index_station
+  include Validator
+  attr_accessor :speed, :number, :type
+  attr_reader :route, :cars, :index_station
+
+  NUMBER_FORMAT = /^(\w{3})(-\w{2})?$/
 
   @@trains = {}
   def self.find(number)
@@ -15,6 +19,7 @@ class Train
   def initialize(number, type)
     @number = number
     @type = type 
+    validate!
     @speed = 0
     @cars = []   
     @@trains[number] = self   
@@ -98,5 +103,11 @@ class Train
   # put it in protected, because we need to use this method in subclasses
   def show_cars_count
     puts "cars count: #{self.cars.size}"
+  end
+
+  def validate!
+    raise "NOT VALID NUMBER" if @number !~ NUMBER_FORMAT
+    raise "NOT VALID TYPE!" if @type !~ /^(cargo|passenger)$/i
+    true
   end
 end

@@ -1,6 +1,9 @@
-class Station
-  attr_reader :name, :trains
+require_relative 'modules/validator'
 
+class Station
+  include Validator
+  attr_reader :trains
+  attr_accessor :name
   @@stations = []
 
   def self.all
@@ -9,6 +12,7 @@ class Station
 
   def initialize(name)
     @name = name
+    validate!
     @trains = []
     @@stations << self
   end
@@ -35,4 +39,11 @@ class Station
   def trains_count
     @trains.size
   end
+
+  protected
+  def validate!
+    raise "NOT VALID NAME!" if @name !~ /\w+/i
+    true
+  end
+
 end
