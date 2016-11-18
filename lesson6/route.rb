@@ -32,8 +32,8 @@ class Route
 
   private
   def validate!
-    raise "NOT VALID STATION1"  if !@start_station.instance_of?(Station)
-    raise "NOT VALID STATION2!" if !@end_station.instance_of?(Station)
+    raise "NOT VALID STATION1"  unless @start_station.instance_of?(Station)
+    raise "NOT VALID STATION2!" unless @end_station.instance_of?(Station)
     true
   end
 end
