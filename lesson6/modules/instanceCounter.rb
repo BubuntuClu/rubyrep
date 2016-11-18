@@ -12,8 +12,9 @@ module InstanceCounter
     protected
     attr_accessor :counter  
     def add
-      self.counter = 0 if self.counter == nil
-      self.counter = self.counter + 1
+      # i didnt change that in first time because i want to hear about it in next lesson
+      self.counter ||= 0
+      self.counter += 1
     end
   end
 

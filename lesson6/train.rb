@@ -10,7 +10,7 @@ class Train
   attr_reader :route, :cars, :index_station
 
   NUMBER_FORMAT = /^(\w{3})(-\w{2})?$/
-
+  TYPE_FORMAT = /^(cargo|passenger)$/i
   @@trains = {}
   def self.find(number)
     @@trains[number]
@@ -107,7 +107,7 @@ class Train
 
   def validate!
     raise "NOT VALID NUMBER" if @number !~ NUMBER_FORMAT
-    raise "NOT VALID TYPE!" if @type !~ /^(cargo|passenger)$/i
+    raise "NOT VALID TYPE!" if @type !~ TYPE_FORMAT
     true
   end
 end

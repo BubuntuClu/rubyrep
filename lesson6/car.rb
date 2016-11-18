@@ -6,6 +6,8 @@ class Car
   include Manufacturer
   include InstanceCounter
   include Validator
+
+  TYPE_FORMAT = /^(cargo|passenger)$/i
   attr_accessor :type
   
   def initialize(type)
@@ -16,7 +18,7 @@ class Car
 
   protected
   def validate!
-    raise "NOT VALID TYPE!" if type !~ /^(cargo|passenger)$/i
+    raise "NOT VALID TYPE!" if type !~ TYPE_FORMAT
     true
   end
 end
