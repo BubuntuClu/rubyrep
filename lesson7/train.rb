@@ -92,7 +92,11 @@ class Train
   end
 
   def show_train_info
-    puts "number - #{number}; type - #{type}; cars count: #{car}"
+    puts "number - #{number}; type - #{type}; cars count: #{self.cars.size}"
+  end
+
+  def show_all_cars_block(&block)
+    @cars.each_with_index { |car,i| yield(car,i)}
   end
 
   protected

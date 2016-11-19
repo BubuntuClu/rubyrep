@@ -14,6 +14,8 @@ class Menu
       puts "7.set route to train"
       puts "8.move train to next station"
       puts "9.get list of stations and trains"
+      puts "10.show all detailed info of cars in train"
+      puts "11.show all detailed info of trains at station"
       puts "0.exit"
 
       choise = gets.chomp.to_i
@@ -38,6 +40,10 @@ class Menu
         move_train
       when 9
         show_stations_and_trains
+      when 10
+        show_cars_of_train
+      when 11
+        show_trains_at_station
       else
         puts" wrong"
       end  
@@ -103,22 +109,16 @@ private
 
   def create_route
     puts "set the start point of route:"
-    stations.each_with_index { |station, i| puts "#{i+1}. #{station.name}" }
-    n = gets.chomp.to_i
-    start_station = stations[n-1]
+    start_station = stations[choose_the_station-1]
     puts "set the end point of route:"
-    stations.each_with_index { |station, i| puts "#{i+1}. #{station.name}" }
-    n = gets.chomp.to_i
-    end_station = stations[n-1]
+    end_station = stations[choose_the_station-1]
     routes << Route.new(start_station, end_station)
   end
 
   def add_station_to_route
     route = routes[choose_the_route - 1]
     puts "choose what station to add:"
-    stations.each_with_index { |station, i| puts "#{i+1}. #{station.name}" }
-    n = gets.chomp.to_i
-    route.add_station(stations[n-1])
+    route.add_station(stations[choose_the_station-1])
   end
 
   def set_route_to_train    
@@ -132,7 +132,17 @@ private
     train.move_train
   end
 
+  def show_cars_of_train
+    train = trains[choose_the_train - 1]
+    train.show_all_cars_block { |car,i| puts "#{i+1}: #{car.type};#{car.show_free_space};#{car.hold_place}" } 
+  end
+     
+  def show_trains_at_station
+    puts "choose the station, that should show the info about trains:"
+    stations[choose_the_station-1].show_all_train_block { |train| puts "#{train.show_train_info}" }
+  end
 
+  private
   def choose_the_train
     puts "choose the train:"
     trains.each_with_index { |train, i| puts "#{i+1}. #{train.number}" }
@@ -144,4 +154,11 @@ private
     routes.each_with_index { |route, i| puts "#{i+1}. " }
     n = gets.chomp.to_i
   end
+
+  def choose_the_station
+    stations.each_with_index { |station, i| puts "#{i+1}. #{station.name}" }
+    n = gets.chomp.to_i
+  end
+
+
 end

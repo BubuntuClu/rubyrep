@@ -27,6 +27,10 @@ class Station
     @trains.each { |train| train.show_train_info }
   end
 
+  def show_all_train_block(&block)
+    @trains.each { |train| yield(train)}
+  end
+
   def show_typed_trains(type)
     puts "the list of #{type} trains on #{self.name} :"
     @trains.each { |train| train.show_train_info if train.type == type }
