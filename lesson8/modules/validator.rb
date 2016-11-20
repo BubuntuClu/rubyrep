@@ -1,7 +1,7 @@
-  module Validator
-    def valid?
-      validate!
-    rescue
-      false
-    end
+module Validator
+  def valid?
+    validate!
+  rescue
+    false
+  end
   end

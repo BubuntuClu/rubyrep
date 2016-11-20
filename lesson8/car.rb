@@ -1,5 +1,5 @@
 require_relative 'modules/manufacturer'
-require_relative 'modules/instanceCounter'
+require_relative 'modules/instance_counter'
 require_relative 'modules/validator'
 
 class Car
@@ -9,7 +9,7 @@ class Car
 
   TYPE_FORMAT = /^(cargo|passenger)$/i
   attr_accessor :type
-  
+
   def initialize(type)
     @type = type
     validate!
@@ -17,8 +17,9 @@ class Car
   end
 
   protected
+
   def validate!
-    raise "NOT VALID TYPE!" if type !~ TYPE_FORMAT
+    raise 'NOT VALID TYPE!' if type !~ TYPE_FORMAT
     true
   end
 end

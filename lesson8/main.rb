@@ -8,9 +8,5 @@ require_relative 'cargo_car'
 require_relative 'passenger_car'
 require_relative 'menu'
 
-
-
 menu = Menu.new
 menu.main_menu
-
-

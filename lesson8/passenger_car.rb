@@ -12,7 +12,7 @@ class PassengerCar < Car
 
   def add_passenger
     if @hold_place == @sleeps
-      puts "no more free space for passengers"
+      puts 'no more free space for passengers'
     else
       @hold_place += 1
     end
@@ -26,16 +26,12 @@ class PassengerCar < Car
     puts "this car is #{type} and got place for #{sleeps} ppl"
   end
 
- private
+  private
 
- #put this in private because i dont want let user use getter on sleeps. they should use show_info
   attr_reader :sleeps
   def validate!
-    raise "NOT VALID TYPE!" if type !~ /^(passenger)$/i
-    raise "NOT VALID SLEEPS PLACE!" if sleeps.to_i < 10
+    raise 'NOT VALID TYPE!' if type !~ /^(passenger)$/i
+    raise 'NOT VALID SLEEPS PLACE!' if sleeps.to_i < 10
     true
   end
 end
-
-  
-  

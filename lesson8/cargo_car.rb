@@ -7,19 +7,17 @@ class CargoCar < Car
   def initialize(type, capacity)
     @capacity = capacity
     @hold_place = 0
-    super(type)    
+    super(type)
   end
 
   def add_cargo(value)
     if cargo_validate!(value)
       if value >= @capacity
-        puts "too heavy cargo"
+        puts 'too heavy cargo'
       else
         @hold_place = value
       end
     end
-  rescue StandardError => e
-      puts "u cant set the negative value"
   end
 
   def show_free_space
@@ -30,20 +28,19 @@ class CargoCar < Car
     puts "this car is #{type} and got capacity #{capacity} ton"
   end
 
-
   private
 
-  #put this in private because i dont want let user use getter on capacity. they should use show_info
+  # put this in private because i dont want let user use getter on capacity.
+  # they should use show_info
   attr_reader :capacity
   def validate!
-    raise "NOT VALID TYPE!" if type !~ /^(cargo)$/i
-    raise "NOT VALID CAPACITY!" if capacity.to_i < 0
+    raise 'NOT VALID TYPE!' if type !~ /^(cargo)$/i
+    raise 'NOT VALID CAPACITY!' if capacity.to_i < 0
     true
   end
 
   def cargo_validate!(value)
-    raise "NOT VALID value!" if value < 0
+    raise 'NOT VALID value!' if value < 0
     true
   end
-
 end

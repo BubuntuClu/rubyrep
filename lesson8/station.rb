@@ -16,23 +16,23 @@ class Station
     @trains = []
     @@stations << self
   end
- 
+
   def add_train(train)
     @trains << train
-    puts "on station #{self.name} train has arrived. count of trains is #{trains_count}"
+    puts "station #{name}: train has arrived. count of trains: #{trains_count}"
   end
 
   def show_all_trains
-    puts "the list of trains on #{self.name} :"
-    @trains.each { |train| train.show_train_info }
+    puts "the list of trains on #{name} :"
+    @trains.each(&:show_train_info)
   end
 
-  def show_all_train_block(&block)
-    @trains.each { |train| yield(train)}
+  def show_all_train_block
+    @trains.each { |train| yield(train) }
   end
 
   def show_typed_trains(type)
-    puts "the list of #{type} trains on #{self.name} :"
+    puts "the list of #{type} trains on #{name} :"
     @trains.each { |train| train.show_train_info if train.type == type }
   end
 
@@ -45,9 +45,9 @@ class Station
   end
 
   protected
+
   def validate!
-    raise "NOT VALID NAME!" if @name !~ /\w+/i
+    raise 'NOT VALID NAME!' if @name !~ /\w+/i
     true
   end
-
 end

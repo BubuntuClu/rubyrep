@@ -6,13 +6,13 @@ module InstanceCounter
 
   module ClassMethods
     def instances
-      self.counter
+      counter
     end
-  
+
     protected
-    attr_accessor :counter  
+
+    attr_accessor :counter
     def add
-      # i didnt change that in first time because i want to hear about it in next lesson
       self.counter ||= 0
       self.counter += 1
     end
@@ -20,6 +20,7 @@ module InstanceCounter
 
   module InstanceMethods
     private
+
     def register_instance
       self.class.send(:add)
     end
