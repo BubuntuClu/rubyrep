@@ -1,26 +1,3 @@
-# module Acessors
-#   def attr_accessor_with_history(*args)
-#     args.each do |arg|
-#       var_name = "@#{arg}".to_sym
-
-#       define_method(arg) do 
-#         if instance_variable_defined?(var_name)
-#           instance_variable_get(var_name) 
-#         else
-#           instance_variable_set(var_name, []) 
-#         end
-#       end
-
-#       define_method("#{arg}=".to_sym) do |value|    
-#         n = var_name.size+1
-#         puts var_name
-#         instance_variable_set("@#{arg}", value) 
-#       end
-#     end
-#   end
-# end
-
-
 module Accessors
   def attr_accessor_with_history(*args)
     args.each do |arg|
