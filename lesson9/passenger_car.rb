@@ -1,7 +1,4 @@
-require_relative 'modules/validator'
-
 class PassengerCar < Car
-  include Validator
   attr_reader :hold_place
 
   def initialize(type, sleeps)

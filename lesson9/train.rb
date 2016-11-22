@@ -5,12 +5,17 @@ require_relative 'modules/validator'
 class Train
   include Manufacturer
   include InstanceCounter
-  include Validator
+  include Validations
   attr_accessor :speed, :number, :type
   attr_reader :route, :cars, :index_station
 
+
+
   NUMBER_FORMAT = /^(\w{3})(-\w{2})?$/
   TYPE_FORMAT = /^(cargo|passenger)$/i
+
+  validate :number, :format, NUMBER_FORMAT
+  validate :type, :format, TYPE_FORMAT
   @@trains = {}
   def self.find(number)
     @@trains[number]
@@ -108,10 +113,10 @@ class Train
   def show_cars_count
     puts "cars count: #{cars.size}"
   end
-
-  def validate!
-    raise 'NOT VALID NUMBER' if @number !~ NUMBER_FORMAT
-    raise 'NOT VALID TYPE!' if @type !~ TYPE_FORMAT
-    true
-  end
 end
+
+t=Train.new("123","cargo")
+puts t.valid?
+t.number=1
+puts t.valid?
+

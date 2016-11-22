@@ -1,11 +1,12 @@
 require_relative 'modules/validator'
 
 class Station
-  include Validator
+  include Validations
   attr_reader :trains
   attr_accessor :name
   @@stations = []
 
+  validate :name, :presence
   def self.all
     @@stations
   end
@@ -43,11 +44,10 @@ class Station
   def trains_count
     @trains.size
   end
-
-  protected
-
-  def validate!
-    raise 'NOT VALID NAME!' if @name !~ /\w+/i
-    true
-  end
 end
+
+# uncomment when it will be done wit Route
+# st=Station.new("1")
+# puts st.valid?
+# st.name=""
+# puts st.valid?

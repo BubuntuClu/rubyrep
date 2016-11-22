@@ -2,14 +2,18 @@ require_relative 'modules/validator'
 require_relative 'station'
 
 class Route
-  include Validator
+  include Validations
   attr_reader :start_station, :end_station, :stations
 
+  validate :start_station, :type, Station
+  validate :end_station, :type, Station
+  
   def initialize(start_station, end_station)
     @start_station = start_station
     @end_station = end_station
-    validate!
-    @stations = [start_station, end_station]
+    if valid?
+      @stations = [start_station, end_station] 
+    end
   end
 
   def add_station(station)
@@ -29,12 +33,6 @@ class Route
     stations.each { |station| puts "next station is - #{station.name}" }
     puts "last station is - #{@end_station.name} "
   end
-
-  private
-
-  def validate!
-    raise 'NOT VALID STATION1'  unless @start_station.instance_of?(Station)
-    raise 'NOT VALID STATION2!' unless @end_station.instance_of?(Station)
-    true
-  end
 end
+
+r=Route.new(1,2)

@@ -1,7 +1,4 @@
-require_relative 'modules/validator'
-
 class CargoCar < Car
-  include Validator
   attr_reader :hold_place
 
   def initialize(type, capacity)
