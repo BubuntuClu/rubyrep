@@ -6,7 +6,10 @@ class Station
   attr_accessor :name
   @@stations = []
 
+  NUMBER_FORMAT = /^(\w{3})(-\w{2})?$/
+
   validate :name, :presence
+  validate :name, :format, NUMBER_FORMAT
   def self.all
     @@stations
   end

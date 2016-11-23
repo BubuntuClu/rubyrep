@@ -9,8 +9,6 @@ class Train
   attr_accessor :speed, :number, :type
   attr_reader :route, :cars, :index_station
 
-
-
   NUMBER_FORMAT = /^(\w{3})(-\w{2})?$/
   TYPE_FORMAT = /^(cargo|passenger)$/i
 
@@ -115,8 +113,7 @@ class Train
   end
 end
 
-t=Train.new("123","cargo")
+t = Train.new('123', 'cargo')
 puts t.valid?
-t.number=1
+t.number = 1
 puts t.valid?
-

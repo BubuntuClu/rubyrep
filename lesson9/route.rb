@@ -7,13 +7,11 @@ class Route
 
   validate :start_station, :type, Station
   validate :end_station, :type, Station
-  
+
   def initialize(start_station, end_station)
     @start_station = start_station
     @end_station = end_station
-    if valid?
-      @stations = [start_station, end_station] 
-    end
+    @stations = [start_station, end_station] if valid?
   end
 
   def add_station(station)
@@ -35,4 +33,10 @@ class Route
   end
 end
 
-r=Route.new(1,2)
+st = Station.new('a')
+puts st.valid?
+st2 = Station.new('b')
+r = Route.new(st, st2)
+puts r.valid?
+st2.name = ''
+puts st2.valid?

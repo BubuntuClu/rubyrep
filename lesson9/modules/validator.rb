@@ -5,46 +5,43 @@ module Validations
   end
 
   module ClassMethods
-    @@val_hash = {}
+    attr_accessor :val_hash
     def validate(name, attr, *args)
-      @@val_hash[name.to_sym] = [attr, args[0]]      
+      self.val_hash ||= {}
+      self.val_hash[self.val_hash.size + 1] = [name.to_sym, attr, args[0]]
     end
 
-    define_method(:@@val_hash) do
-      @@val_hash
+    def get_hash
+      self.val_hash
     end
   end
 
   module InstanceMethods
     def valid?
       validate!
-      rescue StandardError => e
-        puts "#{e.message}"
-        false
+    rescue StandardError => e
+      puts e.message.to_s
+      false
     end
-    
+
     def validate!
-      temp_hash = self.class.send(:@@val_hash)
-      temp_hash.each do |k,v|
-        presence(k) if v[0].to_s == "presence"
-        format(k,v[1]) if v[0].to_s == "format"
-        type(k,v[1]) if v[0].to_s == "type"
-      end
-      true    
+      temp_hash = self.class.send(:get_hash)
+      temp_hash.each { |_, v| send(v[1], instance_variable_get("@#{v[0]}"), v[2]) }
+      true
     end
 
     protected
 
-    def presence(attr_name)
-      raise "Field is not presence!" if instance_variable_get("@#{attr_name}").to_s.empty?
+    def presence(*args)
+      raise 'Field is not presence!' if args[0].to_s.empty?
     end
 
-    def format(attr_name, reg)
-      raise 'Field is not in format' if instance_variable_get("@#{attr_name}").to_s !~ reg
+    def format(*args)
+      raise 'Field is not in format' if args[0].to_s !~ args[1]
     end
 
-    def type(attr_name,class_name)
-      raise 'Field is not needed type'  unless instance_variable_get("@#{attr_name}").instance_of?(class_name)
+    def type(*args)
+      raise 'Field is not in needed type' unless args[0].instance_of?(args[1])
     end
   end
 end
