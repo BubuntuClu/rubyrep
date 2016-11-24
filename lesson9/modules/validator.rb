@@ -8,9 +8,8 @@ module Validations
     attr_reader :val_hash
     def validate(name, attr, *args)
       self.val_hash ||= {}
-      value = val_hash[name] ||= []
-      value.push([attr, args[0]])
-      self.val_hash[name] = value
+      val_hash[name] ||= []
+      self.val_hash[name].push([attr, args[0]])
     end
 
     private
