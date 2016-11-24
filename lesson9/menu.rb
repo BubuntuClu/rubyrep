@@ -1,8 +1,11 @@
 class Menu
-  def main_menu
+  def initialize
     self.stations = []
     self.trains = []
     self.routes = []
+  end
+
+  def main_menu
     loop do
       puts 'What u want to do?'
       puts '1.create station'

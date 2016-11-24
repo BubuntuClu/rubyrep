@@ -5,15 +5,17 @@ module Validations
   end
 
   module ClassMethods
-    attr_accessor :val_hash
+    attr_reader :val_hash
     def validate(name, attr, *args)
       self.val_hash ||= {}
-      self.val_hash[self.val_hash.size + 1] = [name.to_sym, attr, args[0]]
+      value = val_hash[name] ||= []
+      value.push([attr, args[0]])
+      self.val_hash[name] = value
     end
 
-    def get_hash
-      self.val_hash
-    end
+    private
+
+    attr_writer :val_hash
   end
 
   module InstanceMethods
@@ -25,8 +27,10 @@ module Validations
     end
 
     def validate!
-      temp_hash = self.class.send(:get_hash)
-      temp_hash.each { |_, v| send(v[1], instance_variable_get("@#{v[0]}"), v[2]) }
+      temp_hash = self.class.val_hash
+      temp_hash.each do |attr_name, attr_args|
+        attr_args.each { |args| send(args[0], instance_variable_get("@#{attr_name}"), args[1]) }
+      end
       true
     end
 

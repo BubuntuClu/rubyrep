@@ -17,7 +17,7 @@ class Car
   end
 end
 
-t = Car.new('cargo')
-puts t.valid?
-t.type = 1
-puts t.valid?
+# t = Car.new('cargo')
+# puts t.valid?
+# t.type = 1
+# puts t.valid?

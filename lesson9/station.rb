@@ -50,7 +50,5 @@ class Station
 end
 
 # uncomment when it will be done wit Route
-# st=Station.new("1")
-# puts st.valid?
-# st.name=""
-# puts st.valid?
+st = Station.new('123')
+puts st.valid?

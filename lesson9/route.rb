@@ -33,9 +33,9 @@ class Route
   end
 end
 
-st = Station.new('a')
+st = Station.new('aa3')
 puts st.valid?
-st2 = Station.new('b')
+st2 = Station.new('bc3')
 r = Route.new(st, st2)
 puts r.valid?
 st2.name = ''
