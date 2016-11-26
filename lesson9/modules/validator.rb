@@ -9,7 +9,7 @@ module Validations
     def validate(name, attr, *args)
       self.val_hash ||= {}
       val_hash[name] ||= []
-      self.val_hash[name].push([attr, args[0]])
+      self.val_hash[name] << [attr, args[0]]
     end
 
     private
@@ -28,7 +28,8 @@ module Validations
     def validate!
       temp_hash = self.class.val_hash
       temp_hash.each do |attr_name, attr_args|
-        attr_args.each { |args| send(args[0], instance_variable_get("@#{attr_name}"), args[1]) }
+        an = instance_variable_get("@#{attr_name}")
+        attr_args.each { |args| send(args[0], an, args[1]) }
       end
       true
     end
